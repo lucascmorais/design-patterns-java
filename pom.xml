@@ -2,7 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.lucascmorais</groupId>
     <artifactId>design-patterns-java</artifactId>
@@ -11,28 +10,18 @@
     <inceptionYear>2024</inceptionYear>
     <name>Design Patterns Java</name>
     <description>Design Patterns com Java</description>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <sonar-maven-plugin.version>4.0.0.4121</sonar-maven-plugin.version>
         <spring-boot.version>2.7.5</spring-boot.version>
         <jacoco.version>0.8.12</jacoco.version>
-        <commons-dbcp.version>1.4</commons-dbcp.version>
-        <htmlunit.version>4.4.0</htmlunit.version>
-        <gson.version>2.11.0</gson.version>
-        <guice.version>6.0.0</guice.version>
-        <system-lambda.version>1.1.0</system-lambda.version>
         <maven-surefire-plugin.version>3.3.1</maven-surefire-plugin.version>
         <maven-checkstyle-plugin.version>3.4.0</maven-checkstyle-plugin.version>
-        <license-maven-plugin.version>4.5</license-maven-plugin.version>
-        <urm-maven-plugin.version>2.1.1</urm-maven-plugin.version>
-        <slf4j.version>2.0.13</slf4j.version>
+        <slf4j.version>2.0.16</slf4j.version>
+        <logback.version>1.5.6</logback.version>
     </properties>
-
     <modules>
         <module>creational/singleton</module>
     </modules>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -49,6 +38,16 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>${logback.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -99,70 +98,9 @@
                         </execution>
                     </executions>
                 </plugin>
-                <plugin>
-                    <groupId>org.sonarsource.scanner.maven</groupId>
-                    <artifactId>sonar-maven-plugin</artifactId>
-                    <version>${sonar-maven-plugin.version}</version>
-                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>${maven-checkstyle-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>validate</id>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                        <phase>validate</phase>
-                        <configuration>
-                            <configLocation>google_checks.xml</configLocation>
-                            <suppressionsLocation>checkstyle-suppressions.xml</suppressionsLocation>
-
-                            <failOnViolation>true</failOnViolation>
-                            <violationSeverity>warning</violationSeverity>
-                            <includeTestSourceDirectory>false</includeTestSourceDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>com.mycila</groupId>
-                <artifactId>license-maven-plugin</artifactId>
-                <version>${license-maven-plugin.version}</version>
-                <configuration>
-                    <licenseSets>
-                        <licenseSet>
-                            <multi>
-                                <preamble><![CDATA[This project is licensed under the MIT license. Module model-view-viewmodel is using ZK framework licensed under LGPL (see lgpl-3.0.txt).]]></preamble>
-                                <header>com/mycila/maven/plugin/license/templates/MIT.txt</header>
-                            </multi>
-                            <excludes>
-                                <exclude>**/README</exclude>
-                                <exclude>src/test/resources/**</exclude>
-                                <exclude>src/main/resources/**</exclude>
-                                <exclude>checkstyle-suppressions.xml</exclude>
-                            </excludes>
-                        </licenseSet>
-                    </licenseSets>
-                    <properties>
-                        <owner>Ilkka Seppälä</owner>
-                        <email>iluwatar@gmail.com</email>
-                    </properties>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>install-format</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>format</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -178,29 +116,6 @@
                         <id>report</id>
                         <goals>
                             <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>com.iluwatar.urm</groupId>
-                <artifactId>urm-maven-plugin</artifactId>
-                <version>${urm-maven-plugin.version}</version>
-                <configuration>
-                    <!-- if outputDirectory is not set explicitly it will default to your build dir -->
-                    <outputDirectory>${project.basedir}/etc</outputDirectory>
-                    <packages>
-                        <param>com.iluwatar</param>
-                    </packages>
-                    <includeMainDirectory>true</includeMainDirectory>
-                    <includeTestDirectory>false</includeTestDirectory>
-                    <presenter>plantuml</presenter>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>map</goal>
                         </goals>
                     </execution>
                 </executions>

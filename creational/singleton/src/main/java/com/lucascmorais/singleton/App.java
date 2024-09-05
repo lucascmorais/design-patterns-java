@@ -22,6 +22,5 @@ public class App {
         myDatabaseClassic2.show();
 
         LOGGER.info("O primeiro objeto é igual ao segundo?: {}", myDatabaseClassic1 == myDatabaseClassic2);
-
     }
 }

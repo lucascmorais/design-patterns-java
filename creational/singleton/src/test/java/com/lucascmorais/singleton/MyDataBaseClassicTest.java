@@ -2,9 +2,9 @@ package com.lucascmorais.singleton;
 
 import com.lucascmorais.singleton.db.MyDataBaseClassic;
 
-public class TestMyDataBaseClassic extends SingletonTest<MyDataBaseClassic> {
+public class MyDataBaseClassicTest extends SingletonTest<MyDataBaseClassic> {
 
-    public TestMyDataBaseClassic() {
+    public MyDataBaseClassicTest() {
         super(MyDataBaseClassic::getInstance);
     }
 }
